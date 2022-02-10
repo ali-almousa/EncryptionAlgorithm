@@ -15,7 +15,10 @@ import java.nio.file.Paths;
  */
 public class MyEncryption {
 	protected char[] ASCIIcharacters = new char[95];		//All keyboard—ASCII characters (32 to 126)
-	static int key;											//The encryption key string
+	protected static int key;								//The encryption key string
+	protected static MyEncryption encrypter;				//Object of MyEncryption to access all enc/dec methods				
+	protected static File sourceFile;						//File to read from
+	protected static File destinationFile;					//File to write to
 	/**
 	 * 
 	 * @param keySelected
@@ -189,11 +192,11 @@ public class MyEncryption {
 			System.exit(0);
 		}
 		
-		MyEncryption encrypter = new MyEncryption(args[3]);
+		encrypter = new MyEncryption(args[3]);
 
 		//in case the source file does not exist,
 		//print an error message and exit.
-		File sourceFile = new File(System.getProperty("user.dir") + "\\" + args[1]);
+		sourceFile = new File(System.getProperty("user.dir") + "\\" + args[1]);
 		if (!sourceFile.exists()) {
 			System.out.println("The source file is not available!");
 			System.out.printf("If you are running this app from the command line then make sure that %s exists in the same directory of MyEncryption.java file", args[1]);
@@ -203,7 +206,7 @@ public class MyEncryption {
 		
 		//read and create the destination file
 		//if not successful then print an error message
-		File destinationFile = new File(System.getProperty("user.dir") + "\\" + args[2]);
+		destinationFile = new File(System.getProperty("user.dir") + "\\" + args[2]);
 		if (!destinationFile.createNewFile()) {
 			System.out.println("the destination file can't be created!");
 			System.exit(2);
